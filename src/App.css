@@ -34,11 +34,13 @@ body {
 .banner {
     background-color: white;
     height: 60px;
+    width: 100%;
     display: flex;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
     border: solid #EDEDED 1px;
+    position: fixed;
 }
 
 .banner h3 {
@@ -51,6 +53,7 @@ body {
 }
 
 .centerArea form {
+    margin-top: 60px;
     border: solid #EDEDED 1px;
     margin-bottom: 15px;
     background-color: white;
@@ -108,6 +111,7 @@ body {
 .recommendations {
     display: flex;
     justify-content: center;
+    margin-top: 60px;
 }
 
 .twitList {
@@ -141,15 +145,30 @@ body {
 }
 
 .menu a {
-    width: 100%;
+    width: auto;
     display: flex;
     align-items: center;
     font-weight: 700;
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 10px;
+    
+    height: 30px;
+    border-radius: 70px;
+    padding: 10px;
+    transition: 0.3s;
 }
 
 .icons {
     width: 25px;
-    margin-right: 15px;
+    margin-right: 20px;
+}
+
+.menu a:hover {
+    color: #39A2DB;
+    cursor: pointer;
+    background-color: #E6F8F9;
+}
+
+.menu .icons:hover {
+    filter: hue-rotate(90deg);
 }
