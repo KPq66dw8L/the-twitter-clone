@@ -20,6 +20,7 @@ import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { className } from 'postcss-selector-parser';
+import { current } from 'immer';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
@@ -114,14 +115,21 @@ function TwitList() {
   //  }
 
 
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 //div ref dummy for the auto scroll down
   return (
     <main className='homepage'>
       
       <Menu/>
       <div className='centerArea'>
-        <div className='banner'><h3>Home</h3></div>
-        <form onSubmit={sendTwit} >
+        <div className='banner'><h3 onClick={() => topFunction()} id="myBtn" title="Go to top">Home</h3> 
+        </div>
+        <form  onSubmit={sendTwit} >
           <img className='profilePic' src={photoURL}></img>
             <textarea className='autosizeText' value={formValue} onChange={(e) => setFormValue(e.target.value)} maxLength='280' placeholder="What's happening?"></textarea>
               {formValue ? <button type="submit">Twit</button> : <button type="submit" disabled>Twit</button>}
@@ -173,7 +181,30 @@ function Menu() {
 function Recommendations() {
   return (
     <div className='recommendations'>
-      <h2>Trends for you</h2>
+      <article>
+        <h2>Trends for you</h2>
+        <div className='reco'>
+          <p>Entertainment - Trending</p>
+          <h4>Chainsaw Man</h4>
+          <p>30K Twits</p>
+        </div>
+        <div className='reco'>
+          <p>Art & Culture - Trending</p>
+          <h4>MAPPA</h4>
+          <p>17.3K Twits</p>
+        </div>
+        <div className='reco'>
+          <p>Trending in France</p>
+          <h4>FNCS</h4>
+          <p>12.9K Twits</p>
+        </div>
+        <div className='reco'>
+          <p>Sports - Trending</p>
+          <h4>Chiesa</h4>
+          <p>7.8K Twits</p>
+        </div>
+      </article>
+      
     </div>
   );
 }
