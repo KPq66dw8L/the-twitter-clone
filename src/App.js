@@ -1,6 +1,7 @@
 import './App.css';
 
 import React, { useRef, useState } from 'react';
+import autosize from 'autosize';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -8,6 +9,7 @@ import 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { className } from 'postcss-selector-parser';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
@@ -58,13 +60,11 @@ function SignIn() {
     return (
       <button onClick={signInWithGoogle} >Sign In with Google</button>
     );
-  
 }
 
 function TwitList() {
 //connecting the ref of the div 
   const dummy = useRef();
-
 
   const twitsRef = firestore.collection('twits'); //reference a firestore collection
   const query = twitsRef.orderBy('createdAt').limit(25); //query documents in a collection
@@ -72,10 +72,10 @@ function TwitList() {
   const [twits] = useCollectionData(query, {idField: 'id'}); //listen to data with a hook
   const [formValue, setFormValue] = useState('');
 
+  const { uid, photoURL } = auth.currentUser; //destructuring
+
   const sendTwit = async(e) => {
     e.preventDefault(); //prevent re-rendering
-
-    const { uid, photoURL } = auth.currentUser; //destructuring
 
     await twitsRef.add({ //create a new document in firestore
       text: formValue,
@@ -87,20 +87,31 @@ function TwitList() {
 
     dummy.current.scrollIntoView({ behavior: 'smooth' }); //automatic scroll when sending msg
   }
+
+
+  autosize(document.querySelector('.autosizeText'));
+
+
 //div ref dummy for the auto scroll down
   return (
-    <>
-      <div>
-        {twits && twits.map(twt => <Twit key={twt.id} twit={twt} />)}
-        <div ref={dummy}></div> 
+    <main className='homepage'>
+      <div ref={dummy}></div> 
+      <Menu/>
+      <div className='centerArea'>
+        <form onSubmit={sendTwit} >
+          <img className='profilePic' src={photoURL}></img>
+            <textarea className='autosizeText' value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's happening?"></textarea>
+
+              {formValue ? <button type="submit">Twit</button> : <button type="submit" disabled>Twit</button>}
+
+          </form>
+          <div className='twitList'>
+            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} />)}
+            
+          </div>
       </div>
-
-      <form onSubmit={sendTwit} >
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-
-        <button type="submit">Twit</button>
-      </form>
-    </>
+      <Recommendations />
+    </main>
   );
 }
 
@@ -111,11 +122,33 @@ function Twit(props) {
 
   return (
     <div className={`twit ${twitClass}`}>
-      <img src={photoURL}></img>
+      <img className='profilePic' src={photoURL}></img>
       <p>{text}</p>
     </div>
   );
 }
 
+function Menu() {
+  return (
+    <div className='menu'>
+      <h3>Home</h3>
+      <h3>Explore</h3>
+      <h3>Notifications</h3>
+      <h3>Messages</h3>
+      <h3>Bookmarks</h3>
+      <h3>Lists</h3>
+      <h3>Profile</h3>
+      <h3>More</h3>
+    </div>
+  );
+}
+
+function Recommendations() {
+  return (
+    <div className='recommendations'>
+      <h2>Trends for you</h2>
+    </div>
+  );
+}
 
 export default App;
