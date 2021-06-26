@@ -45,6 +45,11 @@ body {
     margin: 0;
 }
 
+.logo {
+    height: 60px;
+    width: 40px;
+}
+
 .centerArea form {
     border: solid #EDEDED 1px;
     margin-bottom: 15px;
@@ -118,13 +123,33 @@ body {
 
 .twit {
     border: solid #EDEDED 1px;
-    
     height: auto;
     background-color: white;
     padding: 20px;
+
+    display: grid;
+    grid-template-columns: 70px 85%;
+    grid-template-rows: 70px 80%;
 }
+
+
 .twit p {
     height: auto;
     word-wrap: break-word;
+    grid-column-start: 2;
+    grid-row-start: 2;
 }
 
+.menu a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.icons {
+    width: 25px;
+    margin-right: 15px;
+}

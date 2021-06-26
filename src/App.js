@@ -1,5 +1,15 @@
 import './App.css';
 
+import logo from './img/bird.svg'
+import bell from './img/bell.svg'
+import bookmark from './img/bookmark.svg'
+import hashtag from './img/hashtag.svg'
+import house from './img/house.svg'
+import lists from './img/lists.svg'
+import mail from './img/mail.svg'
+import more from './img/more.png'
+import profile from './img/profile.svg'
+
 import React, { useRef, useState } from 'react';
 import autosize from 'autosize';
 
@@ -72,7 +82,7 @@ function TwitList() {
   const [twits] = useCollectionData(query, {idField: 'id'}); //listen to data with a hook
   const [formValue, setFormValue] = useState('');
 
-  const { uid, photoURL } = auth.currentUser; //destructuring
+  const { uid, photoURL, displayName } = auth.currentUser; //destructuring
 
   const sendTwit = async(e) => {
     e.preventDefault(); //prevent re-rendering
@@ -118,7 +128,7 @@ function TwitList() {
 
           </form>
           <div className='twitList'>
-            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} />)}
+            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} name={displayName} />)}
             
           </div>
       </div>
@@ -135,6 +145,7 @@ function Twit(props) {
   return (
     <div className={`twit ${twitClass}`}>
       <img className='profilePic' src={photoURL}></img>
+      <bold>{props.name}</bold>
       <p>{text}</p>
     </div>
   );
@@ -143,14 +154,18 @@ function Twit(props) {
 function Menu() {
   return (
     <div className='menu'>
-      <h3>Home</h3>
-      <h3>Explore</h3>
-      <h3>Notifications</h3>
-      <h3>Messages</h3>
-      <h3>Bookmarks</h3>
-      <h3>Lists</h3>
-      <h3>Profile</h3>
-      <h3>More</h3>
+      <img className='logo' src={logo}></img>
+      <a>
+      <img src={house} className='icons'></img>
+      Home
+      </a>
+      <a><img src={hashtag} className='icons'></img>Explore</a>
+      <a><img src={bell} className='icons'></img>Notifications</a>
+      <a><img src={mail} className='icons'></img>Messages</a>
+      <a><img src={bookmark} className='icons'></img>Bookmarks</a>
+      <a><img src={lists} className='icons'></img>Lists</a>
+      <a><img src={profile} className='icons'></img>Profile</a>
+      <a><img src={more} className='icons'></img>More</a>
     </div>
   );
 }
