@@ -85,23 +85,34 @@ function TwitList() {
     });
     setFormValue(''); //reset formValue
 
-    dummy.current.scrollIntoView({ behavior: 'smooth' }); //automatic scroll when sending msg
+    
   }
 
 
   autosize(document.querySelector('.autosizeText'));
+  //to limit the amount of words and not characters in a twit
+  // var wordLen = 255; // Maximum word length
+  //    function checkWordLen(obj){
+  //       var len = obj.value.split(/[\s]+/);
+  //      if(len.length > wordLen){
+  //          alert("You cannot put more than "+wordLen+" words in this text area.");
+  //          obj.oldValue = obj.value!=obj.oldValue?obj.value:obj.oldValue;
+  //          obj.value = obj.oldValue?obj.oldValue:"";
+  //          return false;
+  //      }
+  //    return true;
+  //  }
 
 
 //div ref dummy for the auto scroll down
   return (
     <main className='homepage'>
-      <div ref={dummy}></div> 
+      
       <Menu/>
       <div className='centerArea'>
         <form onSubmit={sendTwit} >
           <img className='profilePic' src={photoURL}></img>
-            <textarea className='autosizeText' value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's happening?"></textarea>
-
+            <textarea className='autosizeText' value={formValue} onChange={(e) => setFormValue(e.target.value)} maxLength='280' placeholder="What's happening?"></textarea>
               {formValue ? <button type="submit">Twit</button> : <button type="submit" disabled>Twit</button>}
 
           </form>
