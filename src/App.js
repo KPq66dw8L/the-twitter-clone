@@ -110,6 +110,7 @@ function TwitList() {
       
       <Menu/>
       <div className='centerArea'>
+        <div className='banner'><h3>Home</h3></div>
         <form onSubmit={sendTwit} >
           <img className='profilePic' src={photoURL}></img>
             <textarea className='autosizeText' value={formValue} onChange={(e) => setFormValue(e.target.value)} maxLength='280' placeholder="What's happening?"></textarea>
