@@ -10,6 +10,11 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .homepage {
     display: grid;
     grid-template-columns: 30% 35% 35%;
@@ -178,7 +183,7 @@ body {
 
     display: grid;
     grid-template-columns: 70px 85%;
-    grid-template-rows: 70px 80%;
+    grid-template-rows: 50px 1fr 30px;
 }
 
 
@@ -187,6 +192,28 @@ body {
     word-wrap: break-word;
     grid-column-start: 2;
     grid-row-start: 2;
+}
+
+.reactions {
+    grid-row-start: 3;
+    grid-column-start: 2;
+}
+
+.reactions img {
+    width: 20px;
+    height: auto;
+}
+
+.reactions a {
+    width: 1fr!important;
+    height: auto;
+}
+
+.reactions a:hover {
+    width: 60px;
+    height: 40px;
+    color: #39A2DB;
+    background-color: #E6F8F9;
 }
 
 .menu a {

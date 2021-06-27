@@ -3,10 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import Bookmarks from './components/Bookmarks';
 
 
 ReactDOM.render(
-    <App />,
+  <Router>
+      <Switch>
+        <Route exact path='/'>
+          <App />
+        </Route>
+        <Route path='/bookmarks/:displayName' children={<Bookmarks/>}></Route>
+      </Switch>
+    </Router>
+    ,
   document.getElementById('root')
 );
 
