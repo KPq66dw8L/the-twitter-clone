@@ -38,7 +38,7 @@ const firestore = firebase.firestore();
 function App() {
 
   const [user] = useAuthState(auth); //hook returns object if user is logged in otherwise returns null
-  console.log(user)
+  
 
   return (
     
@@ -68,6 +68,8 @@ function SignIn() {
       <button onClick={signInWithGoogle} >Sign In with Google</button>
     );
 }
+
+
 
 function TwitList() {
 
@@ -116,6 +118,7 @@ function topFunction() {
     <main className='homepage'>
       
       <Menu name={displayName} />
+      
       <div className='centerArea'>
         <div className='banner'><h3 onClick={() => topFunction()}>Home</h3> 
         </div>
@@ -126,7 +129,7 @@ function topFunction() {
 
           </form>
           <div className='twitList'>
-            {twits && twits.map(twt => <Twit key={twt.id} docId={twt.id} twit={twt} name={displayName} />)}
+            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} name={displayName} />)}
             
           </div>
       </div>
