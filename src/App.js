@@ -73,7 +73,7 @@ function SignIn() {
 
 function TwitList() {
 
-  const twitsRef = firestore.collection('twits'); //reference a firestore collection
+  const twitsRef = firestore.collection('twitList'); //reference a firestore collection
   const query = twitsRef.orderBy('createdAt').limit(25); //query documents in a collection
 
   const [twits] = useCollectionData(query, {idField: 'id'}); //listen to data with a hook
@@ -129,7 +129,7 @@ function topFunction() {
 
           </form>
           <div className='twitList'>
-            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} name={displayName} />)}
+            {twits && twits.map(twt => <Twit key={twt.id} docId={twt.id} twit={twt} name={displayName} />)}
             
           </div>
       </div>

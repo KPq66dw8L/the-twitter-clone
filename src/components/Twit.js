@@ -35,7 +35,6 @@ function Twit(props) {
   const bmquery = bmref.orderBy('createdAt').limit(25); //query documents in a collection
 
   const [twits] = useCollectionData(bmquery, {idField: 'id'}); //listen to data with a hook
-  const [formValue, setFormValue] = useState('');
 
 
   const saveTwit = async(e) => {
@@ -51,16 +50,20 @@ function Twit(props) {
 
   const delTwit = (e) => {
       e.preventDefault(); //prevent re-rendering
-    const bmref = firestore.collection(`bookmarks-${props.name.replace(/\s/g, '')}`); //reference a firestore collection
-    const bmquery = bmref.where('id','==',props.docId);
+    // const bmref = firestore.collection(`bookmarks-${props.name.replace(/\s/g, '')}`); //reference a firestore collection
+    // const bmquery = bmref.where('id','==',props.docId);
 
-    bmquery.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            doc.ref.delete();
-        });
-    });
+    // bmquery.get().then(function(querySnapshot) {
+    //     querySnapshot.forEach(function(doc) {
+    //         doc.ref.delete();
+    //     });
+    // });
 
-    bmref.doc(props.docId).delete();
+    if(window.location.href.includes("bookmarks")) {
+        bmref.doc(props.docId).delete();
+    } else {
+        firestore.collection('twitList').doc(props.docId).delete();
+    }
 
   }
 
@@ -72,6 +75,7 @@ function Twit(props) {
       <div className='reactions'>
         { window.location.href.includes("bookmarks") ? null : <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a> }
         { window.location.href.includes("bookmarks") ? <a href="#" onClick={delTwit}  ><img src={trash}></img></a> : null}
+        {uid === auth.currentUser.uid && !(window.location.href.includes("bookmarks")) ? <a href="#" onClick={delTwit}  ><img src={trash}></img></a> : null}
       </div>
     </div>
   );
