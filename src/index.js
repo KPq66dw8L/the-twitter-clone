@@ -14,7 +14,7 @@ ReactDOM.render(
         <Route exact path='/'>
           <App />
         </Route>
-        <Route path='/bookmarks/:displayName' children={<Bookmarks/>}></Route>
+        <Route path='/bookmarks/:displayName' children={<Bookmarks name=':displayName'/>}></Route>
       </Switch>
     </Router>
     ,

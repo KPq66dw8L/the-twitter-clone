@@ -3,10 +3,9 @@ import './App.css';
 import React, { useRef, useState } from 'react';
 import autosize from 'autosize';
 
-import bookmark from './img/bookmark.svg';
-
 import Recommendations from './components/Recommendations';
-import Menu from './components/Menu'
+import Menu from './components/Menu';
+import Twit from './components/Twit';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -133,40 +132,6 @@ function topFunction() {
       </div>
       <Recommendations />
     </main>
-  );
-}
-
-function Twit(props) {
-  const { text, uid, photoURL } = props.twit;
-
-  const twitClass = uid === auth.currentUser.uid ? 'sent' : 'received'; //comparing the current id on the firestore document to the current user id, if they are equal current user sent
-
-  const bmref = firestore.collection(`bookmarks-${props.name.replace(/\s/g, '')}`); //reference a firestore collection
-  const bmquery = bmref.orderBy('createdAt').limit(25); //query documents in a collection
-
-  const [twits] = useCollectionData(bmquery, {idField: 'id'}); //listen to data with a hook
-  const [formValue, setFormValue] = useState('');
-
-
-  const saveTwit = async(e) => {
-    e.preventDefault(); //prevent re-rendering
-
-    await bmref.add({ //create a new document in firestore
-      text: text,
-      uid,
-      photoURL
-    });
-  }
-
-  return (
-    <div className={`twit ${twitClass}`}>
-      <img className='profilePic' src={photoURL}></img>
-      <bold>{props.name}</bold>
-      <p>{text}</p>
-      <div className='reactions'>
-        <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a>
-      </div>
-    </div>
   );
 }
 
