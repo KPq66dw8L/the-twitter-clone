@@ -3,10 +3,12 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 import bookmark from '../img/bookmark.svg';
+import trash from '../img/delete.png';
 
 import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { DBWrapper } from 'workbox-core/_private';
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
   // Your web app's Firebase configuration
@@ -25,8 +27,7 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 
 function Twit(props) {
-    
-  const { text, uid, photoURL, displayName } = props.twit;
+  const { text, uid, photoURL } = props.twit;
 
   const twitClass = uid === auth.currentUser.uid ? 'sent' : 'received'; //comparing the current id on the firestore document to the current user id, if they are equal current user sent
 
@@ -48,13 +49,29 @@ function Twit(props) {
     });
   }
 
+  const delTwit = (e) => {
+      e.preventDefault(); //prevent re-rendering
+    const bmref = firestore.collection(`bookmarks-${props.name.replace(/\s/g, '')}`); //reference a firestore collection
+    const bmquery = bmref.where('id','==',props.docId);
+
+    bmquery.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            doc.ref.delete();
+        });
+    });
+
+    bmref.doc(props.docId).delete();
+
+  }
+
   return (
     <div className={`twit ${twitClass}`}>
       <img className='profilePic' src={photoURL}></img>
       <bold>{props.name}</bold>
       <p>{text}</p>
       <div className='reactions'>
-        <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a>
+        { window.location.href.includes("bookmarks") ? null : <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a> }
+        { window.location.href.includes("bookmarks") ? <a href="#" onClick={delTwit}  ><img src={trash}></img></a> : null}
       </div>
     </div>
   );

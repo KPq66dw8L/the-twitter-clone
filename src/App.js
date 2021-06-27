@@ -76,7 +76,7 @@ function TwitList() {
 
   const [twits] = useCollectionData(query, {idField: 'id'}); //listen to data with a hook
   const [formValue, setFormValue] = useState('');
-
+  
   const { uid, photoURL, displayName } = auth.currentUser; //destructuring
 
   const sendTwit = async(e) => {
@@ -126,7 +126,7 @@ function topFunction() {
 
           </form>
           <div className='twitList'>
-            {twits && twits.map(twt => <Twit key={twt.id} twit={twt} name={displayName} />)}
+            {twits && twits.map(twt => <Twit key={twt.id} docId={twt.id} twit={twt} name={displayName} />)}
             
           </div>
       </div>

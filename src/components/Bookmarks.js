@@ -51,14 +51,13 @@ function Bookmarks(props) {
 
     return (
         <main className='homepage'>
-            <Link to={newTo} className='btn'>Return</Link>
             <Menu name={props.name} />
             <div className='centerArea'>
                 <div className='banner'><h3 onClick={() => topFunction()}>Bookmarks</h3> 
                 </div>
                 
-                <div className='twitList'>
-                    {twits && twits.map(twt => <Twit key={twt.id} twit={twt} name={window.location.href.split('/')[4]} />)}
+                <div className='bmList'>
+                    {twits && twits.map(twt => <Twit key={twt.id} docId={twt.id} twit={twt} name={window.location.href.split('/')[4]} />)}
                     
                 </div>
             </div>

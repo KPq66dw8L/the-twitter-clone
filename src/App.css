@@ -168,6 +168,11 @@ a {
     display: flex;
     flex-direction: column-reverse;
 }
+.bmList {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column-reverse;
+}
 
 .profilePic {
     border-radius: 50%;
