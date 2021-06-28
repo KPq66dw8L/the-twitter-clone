@@ -67,6 +67,11 @@ function Twit(props) {
 
   }
 
+  const [isActive, setActive] = useState("false");
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
   return (
     <div className={`twit ${twitClass}`}>
       <img className='profilePic' src={photoURL}></img>
@@ -76,6 +81,7 @@ function Twit(props) {
         { window.location.href.includes("bookmarks") ? null : <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a> }
         { window.location.href.includes("bookmarks") ? <a href="#" onClick={delTwit}  ><img src={trash}></img></a> : null}
         {uid === auth.currentUser.uid && !(window.location.href.includes("bookmarks")) ? <a href="#" onClick={delTwit}  ><img src={trash}></img></a> : null}
+        <div id="overHeart"><div id="heart" className={isActive ? "is-active" : null} onClick={() => handleToggle()}></div></div>
       </div>
     </div>
   );

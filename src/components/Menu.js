@@ -39,7 +39,7 @@ const firestore = firebase.firestore();
 
 function SignOut() { //if we have a currentUSer return a button
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()}>Sign Out</button>
+    <a onClick={() => auth.signOut()}>Sign Out</a>
   )
 }
 

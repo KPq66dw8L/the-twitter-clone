@@ -212,6 +212,7 @@ a {
 .reactions a {
     width: 1fr!important;
     height: auto;
+    margin-left: 1vw;
 }
 
 .reactions a:hover {
@@ -219,6 +220,32 @@ a {
     height: 40px;
     color: #39A2DB;
     background-color: #E6F8F9;
+}
+
+#overHeart {
+    width: 20px;
+    height: 20px;
+    grid-row-start: 3;
+    grid-column-start: 2;
+    margin-top: -64.43px;
+    margin-left: 46.08px;
+}
+
+#heart {
+    
+    width: 100px;
+    height: 100px;
+    background: url('./img/heart.png') no-repeat;
+    background-position: 0 0;
+    transform: scale(0.7);
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+}
+
+#heart.is-active {
+    transition-duration: 1s;
+    background-position: -2800px 0;
 }
 
 .menu a {
