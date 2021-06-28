@@ -27,7 +27,7 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 
 function Twit(props) {
-  const { text, uid, photoURL } = props.twit;
+  const { text, uid, photoURL, nickname } = props.twit;
 
   const twitClass = uid === auth.currentUser.uid ? 'sent' : 'received'; //comparing the current id on the firestore document to the current user id, if they are equal current user sent
 
@@ -44,7 +44,8 @@ function Twit(props) {
       text: text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      nickname: props.name,
     });
   }
 
@@ -62,7 +63,7 @@ function Twit(props) {
     if(window.location.href.includes("bookmarks")) {
         bmref.doc(props.docId).delete();
     } else {
-        firestore.collection('twitList').doc(props.docId).delete();
+        firestore.collection('tl').doc(props.docId).delete();
     }
 
   }
@@ -75,7 +76,7 @@ function Twit(props) {
   return (
     <div className={`twit ${twitClass}`}>
       <img className='profilePic' src={photoURL}></img>
-      <bold>{props.name}</bold>
+      <bold>{nickname}</bold>
       <p>{text}</p>
       <div className='reactions'>
         { window.location.href.includes("bookmarks") ? null : <a href="#" onClick={saveTwit} ><img src={bookmark}></img></a> }

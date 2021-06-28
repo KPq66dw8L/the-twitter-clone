@@ -73,7 +73,7 @@ function SignIn() {
 
 function TwitList() {
 
-  const twitsRef = firestore.collection('twitList'); //reference a firestore collection
+  const twitsRef = firestore.collection('tl'); //reference a firestore collection
   const query = twitsRef.orderBy('createdAt').limit(25); //query documents in a collection
 
   const [twits] = useCollectionData(query, {idField: 'id'}); //listen to data with a hook
@@ -88,7 +88,8 @@ function TwitList() {
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      nickname: displayName
     });
     setFormValue(''); //reset formValue
   }
